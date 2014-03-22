@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>Visualization of json data</title>
+  <script>window.duck = {};</script>
+  <script src="libs.js"></script>
+  <script src="explorer.js"></script>
+</head>
+<body>
+  <!--<input id="company_input" type="text" placeholder="enter a company name" />-->
+  <div id="ui">
+    <p>I want to find companies that are involved in <select id="categories"></select>.</p>
+    <p class="hidden">And <select id="governance"></select></p>
+    <p class="hidden">And <select id="community"></select></p>
+    <p class="hidden">And <select id="supplychain"></select></p>
+    <p class="hidden">And <select id="environment"></select></p>
+    <a href="#" id="go">Find!</a>
+  </div>
+  <div id="canvas"></div>
+  <div id="thinking">Thinking..</div>
+  <script id="categories_options" type="text/html">
+    <option>Choose...</option>
+    {{#emitted}}
+    <option value="{{.}}">{{.}}</option>
+    {{/emitted}}
+  </script>
+  <script id="company_card" type="text/html">
+    <div class="company">
+      <h3>{{emitted.name}}</h3>
+      <ul>
+      <li>Social impact Score:{{emitted.social_impact_score}}</li>
+      <li>Glassdoor CEO Approval:{{emitted.glassdoor.ceo_approval}}</li>
+      </ul>
+    </div>
+  </script>
+  <script id="companies_list" type="text/html">
+    <div class="companies">
+      <ul>
+      {{#emitted}}
+      <li><a data-href="{{url}}" class="build_company">{{name}}</a></li>
+      {{/emitted}}
+      </ul>
+    </div>
+  </script>
+</body>
+</html>
