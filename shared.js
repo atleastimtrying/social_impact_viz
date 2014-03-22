@@ -16,6 +16,10 @@ window.siv.APIS = function(){
     return root + categories_list;
   };
 
+  var build_subcategories_url = function(append){
+    return root + encodeURIComponent(append);
+  };
+
   var build_category_url = function(name){
     return root + categories_list + name
   };
@@ -38,6 +42,9 @@ window.siv.APIS = function(){
       success: function(data){
         $('#thinking').hide();
         callback(data);
+      },
+      error: function(error){
+        console.log(error);
       }
     });
   };
@@ -50,6 +57,12 @@ window.siv.APIS = function(){
     var url = build_categories_url();
     jsonp(url, function(categories){
       emit('categories', categories);
+    });
+  };  
+  var retrieve_subcategories = function(event, url){
+    var url = build_subcategories_url(url);
+    jsonp(url, function(subcategories){
+      emit('subcategories', subcategories);
     });
   };
 
@@ -68,6 +81,7 @@ window.siv.APIS = function(){
   };
 
   $(siv).on('retrieve_categories', retrieve_categories);
+  $(siv).on('retrieve_subcategories', retrieve_subcategories);
   $(siv).on('retrieve_category', retrieve_category);
   $(siv).on('retrieve_company', retrieve_company);
   $(siv).on('search_companies', search_companies);

@@ -15,7 +15,10 @@ window.siv.UI = function(){
 
   $(siv).trigger('retrieve_categories');
   $('#categories').change(function(event){
-    $(event.currentTarget).find("option:checked").data('subcategories');
+    var sub_url = $(event.currentTarget).find("option:checked").data('subcategories');
+    if(sub_url){
+      $(siv).trigger('retrieve_subcategories', sub_url);
+    }
   });
 };
 
@@ -35,8 +38,11 @@ window.siv.Draw = function(){
   };
 
   var render_categories = function(categories){
-    console.log(categories);
     select.html(Mustache.render(categories_template, categories));
+  };
+
+  var render_subcategories = function(subcategories){
+    console.log(subcategories);
   };
 
   $(siv).on('emit_company', function(event, company){
@@ -45,6 +51,10 @@ window.siv.Draw = function(){
 
   $(siv).on('emit_categories', function(event, categories){
     render_categories(categories);
+  });
+
+  $(siv).on('emit_subcategories', function(event, subcategories){
+    render_subcategories(subcategories);
   });
 
   $(siv).on('emit_category', function(event, category){
