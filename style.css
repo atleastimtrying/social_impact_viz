@@ -3,6 +3,7 @@
   padding:0;
   font-size:16px;
   font-family: sans-serif;
+  line-height:1.4em;
 }
 #ui{
   padding:8px;
@@ -55,4 +56,44 @@ a.build_company{
   text-align: center;
   z-index: 10;
   display: none;
+}
+#cards{
+  margin:16px;
+}
+#cards .card{
+  display: inline-block;
+  padding: 16px;
+  border: 1px solid #AFAFAF;
+  margin-right: 16px;
+  border-radius: 4px;
+  box-shadow: 8px 8px 8px #ccc;
+}
+ul.inputs{
+
+}
+ul.inputs li{
+  list-style:none;
+}
+ul.inputs li input{
+  border:1px solid #ccc;
+  padding:7px;
+  border-radius:2px;
+  margin-bottom: 4px;
+}
+#ui ul li a.delete {
+  text-decoration: none;
+  color: #ccc;
+  margin-left: -20px;
+}
+.more.btn{
+  background:lightgreen;
+}
+.btn{
+  padding:8px;
+  text-decoration: none;
+  color:white;
+  background:#999;
+  display:inline-block;
+  margin-bottom:8px;
+  border-radius:2px;
 }

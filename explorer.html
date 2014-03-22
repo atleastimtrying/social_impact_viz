@@ -10,6 +10,7 @@
   <title>Visualization of json data</title>
   <script>window.duck = {};</script>
   <script src="libs.js"></script>
+  <script src="shared.js"></script>
   <script src="explorer.js"></script>
 </head>
 <body>
@@ -27,7 +28,7 @@
   <script id="categories_options" type="text/html">
     <option>Choose...</option>
     {{#emitted}}
-    <option value="{{.}}">{{.}}</option>
+    <option value="{{company}}" {{#subcategories}} data-subcategories="{{subcategories}}" {{/subcategories}}>{{name}}</option>
     {{/emitted}}
   </script>
   <script id="company_card" type="text/html">
