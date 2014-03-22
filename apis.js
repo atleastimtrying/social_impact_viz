@@ -1,3 +1,0 @@
-window.siv.APIS = function(){
-  
-};
