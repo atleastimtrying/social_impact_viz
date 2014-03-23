@@ -1,54 +1,64 @@
 window.siv.Sketch = function(){
-  var build_ctx = function(){
-    var canvas = $('canvas#stage')[0];
-    var ctx = canvas.getContext('2d');
-    canvas.width = $(window).width();
-    canvas.height = 500;
-    ctx.fillCircle = function(x,y,radius){
-      this.beginPath();
-      this.arc(x, y, radius, 0, Math.PI * 2, false);
-      this.closePath();
-      this.fill();
-    };
-    return ctx;
-  };
-  var ctx = build_ctx();
-  var x = 100;
-  var y = 100;
-
-  var hue_from = function(percentage){
-    if(percentage){
-      return 3.6 * percentage;
-    }else{
-      return 0;
-    }
-  };
-
-  var move = function(){
-    x += 100;
-    if(x > 1000){
-      x = 100;
-      y += 100;
-    }
-  };
-
-  var draw_company = function(ctx, element){
-    ctx.fillStyle = "hsl(" + hue_from(element.ratings.community) + ", 60%, 60%)";
-    console.log(ctx.fillStyle);
-    ctx.fillCircle(x,y, element.ratings.community / 2);
-
-    ctx.fillStyle = "#333";
-    ctx.font = "10px sans-serif";
-    ctx.fillText(element.name, x - 50 + ctx.measureText(element.name).width/2, y + 50);
-    move();
+  var proportional = function(arr, field, value, canvas_max) {
+    var ratings = arr.map(function(element) { return element.ratings });
+    var max = d3.max(ratings, function(rating) { return rating[field]; });
+    var min = d3.min(ratings, function(rating) { return rating[field]; });
+    console.log( ((value - min) * canvas_max) / (max - min) );
+    return ((value - min) * canvas_max) / (max - min);
   };
 
   $(siv).on('sketch', function(event, result){
     var companies = result.emitted;
-    ctx.fillStyle = "#ccc";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    $.each(companies, function(index, element){
-      draw_company(ctx, element);
-    });
+    var diameter = 960,
+    format = d3.format(",d"),
+    color = d3.scale.category20c();
+
+    var bubble = d3.layout.pack()
+        .sort(null)
+        .size([diameter, diameter])
+        .padding(1.5);
+
+    var svg = d3.select("#stage").append("svg")
+        .attr("width", diameter)
+        .attr("height", diameter)
+        .attr("class", "bubble");
+
+    var node = svg.selectAll(".node")
+        .data(companies)
+      .enter().append("g")
+        .attr("class", "node")
+        .attr("transform", function(d) { 
+          return "translate(" + (d.ratings.governance * 8) + "," + ((d.ratings.community * 6) + 50) + ")"; 
+        })
+
+    node.append("title")
+        .text(function(d) {
+          return d.name; 
+        });
+
+    node.append("circle")
+        .attr("r", function(d) { 
+          if(d.ratings.employees){
+            return d.ratings.employees;
+          }else{
+            return 10;
+          }
+        })
+        .style("fill", function(d) { 
+          if(d.ratings.environment){
+            return 'hsl(' + (d.ratings.environment * 3.6) + ', 60%, 60%)';
+          }else{
+            return '#eee';
+          }
+        });
+
+    node.append("text")
+        .attr("dy", ".3em")
+        .style("text-anchor", "middle")
+        .text(function(d) { 
+          return d.name;
+        });
+
+    d3.select(self.frameElement).style("height", 600 + "px");
   });
 };
