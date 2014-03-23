@@ -2,18 +2,12 @@ window.siv.Comparator = function(){
   this.apis = new siv.APIS();
   var companies = [];
 
-  var render = function(results){
-    var chart = new Charting(results, companies);
+  var render = function(){
+    var chart = new Charting(companies);
 
     $('#chart').slideDown(function() {
       chart.draw($('.chart_type:checked').val());
     });
-  };
-
-  var render_compare = function(event){
-    event.preventDefault();
-    var comparison_value = $(event.currentTarget).data('compare');
-    render(generate_results(comparison_value));
   };
 
   var find_company_url = function(name){
@@ -27,7 +21,6 @@ window.siv.Comparator = function(){
         return $(this).val();
       }
     });
-    $('#cards').html('');
     companies = [];
     $(names).each(function(index, name){
       $(siv).trigger('search_companies', find_company_url(name));
@@ -36,6 +29,7 @@ window.siv.Comparator = function(){
   $('.more').click(function(event){
     event.preventDefault();
     $('.inputs').append('<li><input class="company_name" placeholder="Company Name" /><a href="#" class="delete">x</a></li>');
+    $('.inputs li:last-child input').focus();
   });
   $('li a.delete').click(function(event){
     event.preventDefault();
@@ -43,13 +37,22 @@ window.siv.Comparator = function(){
   });
   $(siv).on('emit_company', function(event, company){
     companies.push(company.emitted);
-    $('#cards').append(Mustache.render($('#card').html(), company.emitted));
+    render();
   });
-  $('#cards').on({
-    click: render_compare
-  }, '.compare');
 
-  $('.chart_type').on('change', render_compare)
+  var inputHasChanged = function() {
+    if(event.keyCode == 13) {
+      $('#go').trigger('click');
+    }
+  }
+
+  $('.chart_type').on('change', render)
+  $('.inputs').on(
+    {
+      keyup: inputHasChanged,
+      change: inputHasChanged
+    }, 'input'
+  );
 };
 
 $(function(){
