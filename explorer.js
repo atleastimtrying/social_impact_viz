@@ -9,33 +9,22 @@ window.siv.UI = function(){
   };
   
   $('select#subcategories').change(function(){
-    var value = $('select#subcategories').val();
+    value = $("#subcategories").val();
+    $(siv).trigger('retrieve_subcategory', value);
   });
-  $('a.goFilter').click(function (){
 
+  $('a.goFilter').click(function (){
     var filtersValue = $("#filters").val();
     var comparersValue = $("#comparers").val();
     var compareValueValue = $("#compareValue").val();
-
     var value = "";
-
     if (filtersValue && compareValue && compareValueValue) {
       value = "http://10.10.63.58:9292/api/companies/search/" + filtersValue + "/" + comparersValue + "/" + compareValueValue;
-    }
-    else{
+    }else{
       value = "http://10.10.63.58:9292/api/companies/search/";
     }
-    console.log("goFilter" + value); //url to poll
-
     $(siv).trigger('retrieve_subcategory', value);
-  })
-  $('a.goSubcategories').click(function (){
-
-    value = $("#subcategories").val();
-    console.log("goSub:" + value); //url to poll
-
-    $(siv).trigger('retrieve_subcategory', value);
-  })
+  });
 
   $('#categories').change(function(event){
     var sub_url = $(event.currentTarget).find("option:checked").data('subcategories');
