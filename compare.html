@@ -24,14 +24,18 @@
         <li><input class="company_name" placeholder="Company Name" /><a href="#" class="delete">x</a></li>
         <li><input class="company_name" placeholder="Company Name" /><a href="#" class="delete">x</a></li>
       </ul>
-      <a href="#" class="more btn">Add Company</a>
-      <a href="#" id="go" class="btn">go!</a>
+      <a href="#" class="more btn">+ add another</a>
+      <div>
+        <a href="#" id="go" class="go btn">go!</a>
+      </div>
     </p>
   </div>
   <div id="chart">
     <label for='pie_chart'>Pie chart</label>
-    <input type="radio" name='chart_type' id='pie_chart' value='pie' class='chart_type' checked>
-  <svg></svg>
+    <input type="radio" name='chart_type' value='pie' class='chart_type' checked>
+    <label for='pie_chart'>Bar chart</label>
+    <input type="radio" name='chart_type' value='bar' class='chart_type'>
+    <svg></svg>
   </div>
   <div id="cards"></div>
   <div id="thinking">Thinking..</div>

@@ -2,27 +2,13 @@ window.siv.Comparator = function(){
   this.apis = new siv.APIS();
   var companies = [];
 
-  var generate_results = function(comparison_value){
-    return $.map(companies, function(company){
-      if(company.name && company.basic_ratings[comparison_value]){
-        return {
-          label: company.name,
-          value: company.basic_ratings[comparison_value]
-        };
-      }
-    });
-  };
-
-
   var render = function(results){
-    var charts = new Charting(generate_results());
+    var chart = new Charting(results, companies);
 
     $('#chart').slideDown(function() {
-      charts.draw($('.chart_type').val());
+      chart.draw($('.chart_type:checked').val());
     });
   };
-
-
 
   var render_compare = function(event){
     event.preventDefault();
@@ -33,7 +19,7 @@ window.siv.Comparator = function(){
   var find_company_url = function(name){
     return "http://10.10.63.58:9292/api/companies/" + name;
   };
-  
+
   $('#go').click(function(event){
     event.preventDefault();
     var names = $('.company_name').map(function(){
@@ -62,6 +48,8 @@ window.siv.Comparator = function(){
   $('#cards').on({
     click: render_compare
   }, '.compare');
+
+  $('.chart_type').on('change', render_compare)
 };
 
 $(function(){
