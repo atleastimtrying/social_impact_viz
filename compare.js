@@ -5,7 +5,7 @@ window.siv.Comparator = function(){
 
   if(siv.params) {
     $.each(siv.params, function(idx, pair) {
-      $('.company_name').first().before(new_company_input);
+      $('ul.inputs').prepend(new_company_input);
       $('.company_name').first().val(decodeURI(pair.key));
     });
   }
