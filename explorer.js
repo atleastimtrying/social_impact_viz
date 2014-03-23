@@ -4,22 +4,24 @@ window.siv.UI = function(){
     var link = $(event.currentTarget);
     $(siv).trigger('retrieve_company', link.data('href'));
   };
+  
   $('#go').click(function(event){
     event.preventDefault();
     var value = $('select#subcategories').val();
     $(siv).trigger('retrieve_subcategory', value);
   });
+  
   $('#canvas').on({
     click: retrieve_company
   }, '.build_company');
 
-  $(siv).trigger('retrieve_categories');
   $('#categories').change(function(event){
     var sub_url = $(event.currentTarget).find("option:checked").data('subcategories');
     if(sub_url){
       $(siv).trigger('retrieve_subcategories', sub_url);
     }
   });
+  $(siv).trigger('retrieve_categories', "http://10.10.63.58:9292/api/categories/");
 };
 
 window.siv.Draw = function(){
@@ -32,11 +34,10 @@ window.siv.Draw = function(){
   var companies_list = $('#companies_list').html();
 
   var render_company = function(company){
-    canvas.html(Mustache.render(company_card, company));
+    console.log(Mustache.render(company_card, company));
   };
 
   var render_companies = function(companies){
-    console.log(companies);
     canvas.html(Mustache.render(companies_list, companies));
   };
 
