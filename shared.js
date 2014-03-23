@@ -32,15 +32,19 @@ window.siv.APIS = function(){
   };
 
   var jsonp = function(url, callback){
-    $('#thinking').show();
     $.ajax({
       type: 'GET',
       url: url,
       async: false,
       contentType: "application/json",
       dataType: 'jsonp',
-      success: function(data){
+      beforeSend: function(){
+        $('#thinking').show();
+      },
+      complete: function(){
         $('#thinking').hide();
+      },
+      success: function(data){
         callback(data);
       },
       error: function(error){
