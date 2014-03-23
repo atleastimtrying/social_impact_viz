@@ -16,7 +16,27 @@
 <body>
   <!--<input id="company_input" type="text" placeholder="enter a company name" />-->
   <div id="ui">
-    <p>I want to find companies that are involved in <select id="categories"></select><select id="subcategories" class="hidden"></select>.</p>
+    <p>I want to find companies that are involved in 
+      <select id="categories"></select>
+      <select id="subcategories" class="hidden"></select>
+      <span id="whereText" class="hidden">Where</span>
+      <select id="filters" class="hidden">
+        <option>select if</option>
+        <option value="community">community</option>
+        <option value="employees">employees</option>
+        <option value="environment">environment</option>
+        <option value="governance">governance</option>
+      </select>
+      <select id="comparers" class="hidden">
+        <option>choose</option>
+        <option value="less_than">less than</option>
+        <option value="greater_than">greater than</option>
+        <option value="equal">equal to</option>
+        <option value="greater_than_or_equal">greater than or equal to</option>
+        <option value="less_than_or_equal">less than or equal</option>
+      </select>
+      <input type="text" id="compareValue" class="hidden"/>
+      <a href="#" class="go">GO!</a>
   </div>
   <div id="canvas"></div>
   <canvas id="stage"></canvas>

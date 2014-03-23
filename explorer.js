@@ -7,8 +7,17 @@ window.siv.UI = function(){
   
   $('select#subcategories').change(function(){
     var value = $('select#subcategories').val();
-    $(siv).trigger('retrieve_subcategory', value);
+    $("#filters").removeClass("hidden");
+    $("#whereText").removeClass("hidden");
+    $("#comparers").removeClass("hidden");
+    $("#compareValue").removeClass("hidden");        
+
   });
+  $('a.go').click(function (){
+    var value = "http://10.10.63.58:9292/api/companies/search/" + $("#filters").val() + "/" + $("#comparers").val() + "/" + $("#compareValue").val();
+    console.log(value); //url to poll
+    $(siv).trigger('retrieve_subcategory', value);
+  })
   $('#card .close').click(function(event){
     event.preventDefault();
     $(event.currenttTarget).parents('#card').hide();
