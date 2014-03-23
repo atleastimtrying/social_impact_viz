@@ -34,6 +34,11 @@ window.siv.Comparator = function(){
     var comparison_value = $(event.currentTarget).data('compare');
     render(generate_results(comparison_value));
   };
+
+  var find_company_url = function(name){
+    return "http://10.10.63.58:9292/api/companies/" + name;
+  };
+  
   $('#go').click(function(event){
     event.preventDefault();
     var names = $('.company_name').map(function(){ 
@@ -44,7 +49,7 @@ window.siv.Comparator = function(){
     $('#cards').html('');
     companies = [];
     $(names).each(function(index, name){
-      $(siv).trigger('search_companies', name);
+      $(siv).trigger('search_companies', find_company_url(name));
     });
   });
   $('.more').click(function(event){
