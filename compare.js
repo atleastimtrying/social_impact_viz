@@ -26,7 +26,7 @@ window.siv.Comparator = function(){
     event.preventDefault();
     var names = $('.company_name').map(function(){
       if($(this).val()){
-        return $(this).val();
+        return $(this).val().trim();
       }
     });
     companies = [];
