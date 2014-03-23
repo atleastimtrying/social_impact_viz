@@ -16,7 +16,7 @@ window.Charting = (function() {
           })
         });
       });
-      console.log(out);
+
       return out;
     };
 
