@@ -55,21 +55,26 @@
     <option value="{{company}}" {{#subcategories}} data-subcategories="{{subcategories}}" {{/subcategories}}>{{name}}</option>
     {{/emitted}}
   </script>
+  
   <script id="subcategories_options" type="text/html">
     <option>Choose...</option>
     {{#emitted}}
     <option value="{{companies}}" {{#subcategories}} data-subcategories="{{subcategories}}" {{/subcategories}}>{{name}}</option>
     {{/emitted}}
   </script>
+  
   <script id="company_card" type="text/html">
-    <div class="company">
-      <h3>{{emitted.name}}</h3>
-      <ul>
-        <li>Social impact Score:{{emitted.social_impact_score}}</li>
-        <li>Glassdoor CEO Approval:{{emitted.glassdoor.ceo_approval}}</li>
-      </ul>
+    <div class="card">
+      <h2>{{name}}</h2>
+      <p>Community: {{ basic_ratings.community }} <a href="#" class="compare btn" data-compare="community">Compare</a></p>
+      <p>Employees: {{ basic_ratings.employees }} <a href="#" class="compare btn" data-compare="employees">Compare</a></p>
+      <p>Environment: {{ basic_ratings.environment }} <a href="#" class="compare btn" data-compare="environment">Compare</a></p>
+      <p>Governance: {{ basic_ratings.governance }} <a href="#" class="compare btn" data-compare="governance">Compare</a></p>
+      <p>Overall: {{ basic_ratings.overall }} <a href="#" class="compare btn" data-compare="overall">Compare</a></p>
     </div>
   </script>
+  </script>
+
   <script id="companies_list" type="text/html">
     <div class="companies">
       <ul>
