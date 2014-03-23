@@ -31,11 +31,14 @@ window.siv.APIS = function(){
   hokey_cokey('search_companies', 'company');
 };
 window.siv.read = function(){
-  window.siv.parameters = window.location.toString().split('?')[1].split('&').map(function(element){ 
-    var key_values = element.split('='); 
-    return { 
-      key:key_values[0], 
-      value: key_values[1] 
-    }; 
-  });
+  var params_string = window.location.toString().split('?')[1];
+  if(params_string){
+    params_string.split('&').map(function(element){ 
+      var key_values = element.split('='); 
+      return { 
+        key:key_values[0], 
+        value: key_values[1] 
+      }; 
+    });
+  }
 };
