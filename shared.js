@@ -30,3 +30,12 @@ window.siv.APIS = function(){
   hokey_cokey('retrieve_company', 'company');
   hokey_cokey('search_companies', 'company');
 };
+window.siv.read = function(){
+  window.siv.parameters = window.location.toString().split('?')[1].split('&').map(function(element){ 
+    var key_values = element.split('='); 
+    return { 
+      key:key_values[0], 
+      value: key_values[1] 
+    }; 
+  });
+};
