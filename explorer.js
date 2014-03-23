@@ -1,3 +1,6 @@
+// prefill category and subcategory from url params
+
+
 window.siv.UI = function(){
   var retrieve_company = function(event){
     event.preventDefault();
@@ -9,13 +12,14 @@ window.siv.UI = function(){
     var value = $('select#subcategories').val();
     $(siv).trigger('retrieve_subcategory', value);
   });
-  $('#card .close').click(function(event){
-    event.preventDefault();
-    $(event.currenttTarget).parents('#card').hide();
-  });
-  $('#canvas').on({
-    click: retrieve_company
-  }, '.build_company');
+
+  // $('#card .close').click(function(event){
+  //   event.preventDefault();
+  //   $(event.currenttTarget).parents('#card').hide();
+  // });
+  // $('#canvas').on({
+  //   click: retrieve_company
+  // }, '.build_company');
 
   $('#categories').change(function(event){
     var sub_url = $(event.currentTarget).find("option:checked").data('subcategories');
@@ -27,11 +31,14 @@ window.siv.UI = function(){
 };
 
 window.siv.Draw = function(){
+  //things i will render into
   var canvas = $('#canvas');
   var select = $('select#categories');
   var subselect = $('select#subcategories');
   var card = $('#card');
   var card_render = $('#card_render');
+
+  //templates
   var company_card = $('#company_card').html();
   var categories_template = $('#categories_options').html();
   var subcategories_template = $('#subcategories_options').html();
@@ -49,11 +56,31 @@ window.siv.Draw = function(){
 
   var render_categories = function(categories){
     select.html(Mustache.render(categories_template, categories));
+    if(siv.params){
+      var category_param = $.grep(siv.params, function(element){ return element.key === "category" ; })[0];
+      if(category_param){
+        select.find('option').filter(function() {
+          return $(this).text() == decodeURIComponent(category_param.value); 
+        }).prop('selected', true);
+        select.trigger('change');
+      }
+    }
   };
 
   var render_subcategories = function(subcategories){
     subselect.html(Mustache.render(subcategories_template, subcategories));
     subselect.removeClass('hidden');
+    if(siv.params){
+      var subcategory_param = $.grep(siv.params, function(element){ return element.key === "subcategory" ; })[0];
+      if(subcategory_param){
+        var option = subselect.find('option').filter(function() {
+          return $(this).text() == decodeURIComponent(subcategory_param.value); 
+        }).prop('selected', true);
+        if(option){
+          subselect.trigger('change');
+        }
+      }
+    }
   };
 
   var bind_to_emit = function(label, callback){
