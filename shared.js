@@ -42,6 +42,7 @@ window.siv.APIS = function(){
     });
   };
 
+
   var emit_from_url = function(name, url){
     jsonp(url, function(response){
       emit(name, response);
@@ -59,19 +60,19 @@ window.siv.APIS = function(){
   $(siv).on('retrieve_subcategories', function(event, url){
     emit_from_url('subcategories', url);
   });
-  
+
   $(siv).on('retrieve_category', function(event, category){
     emit_from_url('category', build_category_url(category));
   });
-  
+
   $(siv).on('retrieve_subcategory', function(event, url){
     emit_from_url('subcategory', url);
   });
-  
+
   $(siv).on('retrieve_company', function(event, url){
     emit_from_url('subcategory', build_company_url(url));
   });
-  
+
   $(siv).on('search_companies', function(event, name){
     emit_from_url('company', find_company_url(name));
   });

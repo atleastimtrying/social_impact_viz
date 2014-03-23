@@ -9,10 +9,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <title>Visualization of json data</title>
-  <script>window.duck = {};</script>
   <script src="libs.js"></script>
   <script src="nv.d3.min.js"></script>
   <script src="shared.js"></script>
+  <script src="charting.js"></script>
   <script src="compare.js"></script>
 </head>
 <body>
@@ -25,11 +25,15 @@
         <li><input class="company_name" placeholder="Company Name" /><a href="#" class="delete">x</a></li>
       </ul>
       <a href="#" class="more btn">Add Company</a>
+      <a href="#" id="go" class="btn">go!</a>
     </p>
-    <p><a href="#" id="go" class="btn">go!</a></p>
+  </div>
+  <div id="chart">
+    <label for='pie_chart'>Pie chart</label>
+    <input type="radio" name='chart_type' id='pie_chart' value='pie' class='chart_type' checked>
+  <svg></svg>
   </div>
   <div id="cards"></div>
-  <div id="chart"><svg></svg></div>
   <div id="thinking">Thinking..</div>
   <script id="card" type="text/html">
     <div class="card">

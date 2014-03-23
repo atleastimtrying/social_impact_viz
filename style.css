@@ -57,6 +57,10 @@ a.build_company{
   z-index: 10;
   display: none;
 }
+#chart {
+  height: 300px;
+  display: none;
+}
 #cards{
   margin:16px;
 }

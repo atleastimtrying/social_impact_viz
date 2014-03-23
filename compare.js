@@ -5,29 +5,24 @@ window.siv.Comparator = function(){
   var generate_results = function(comparison_value){
     return $.map(companies, function(company){
       if(company.name && company.basic_ratings[comparison_value]){
-        return { 
-          label: company.name, 
-          value: company.basic_ratings[comparison_value]  
-        }; 
+        return {
+          label: company.name,
+          value: company.basic_ratings[comparison_value]
+        };
       }
     });
   };
 
-  var render = function(results){
-    console.log(results);
-    nv.addGraph(function() {
-      var chart = nv.models.pieChart()
-        .x(function(d) { return d.label })
-        .y(function(d) { return d.value })
-        .showLabels(true);
 
-      d3.select("#chart svg")
-        .datum(results)
-        .transition().duration(350)
-        .call(chart);
-      return chart;
+  var render = function(results){
+    var charts = new Charting(generate_results());
+
+    $('#chart').slideDown(function() {
+      charts.draw($('.chart_type').val());
     });
   };
+
+
 
   var render_compare = function(event){
     event.preventDefault();
@@ -36,10 +31,10 @@ window.siv.Comparator = function(){
   };
   $('#go').click(function(event){
     event.preventDefault();
-    var names = $('.company_name').map(function(){ 
+    var names = $('.company_name').map(function(){
       if($(this).val()){
         return $(this).val();
-      } 
+      }
     });
     $('#cards').html('');
     companies = [];
