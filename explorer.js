@@ -7,13 +7,15 @@ window.siv.UI = function(){
   
   $('select#subcategories').change(function(){
     var value = $('select#subcategories').val();
+    /*
     $("#filters").removeClass("hidden");
     $("#whereText").removeClass("hidden");
     $("#comparers").removeClass("hidden");
-    $("#compareValue").removeClass("hidden");        
+    $("#compareValue").removeClass("hidden");
+    */        
 
   });
-  $('a.go').click(function (){
+  $('a.goFilter').click(function (){
 
     var filtersValue = $("#filters").val();
     var comparersValue = $("#comparers").val();
@@ -27,8 +29,15 @@ window.siv.UI = function(){
     else{
       value = "http://10.10.63.58:9292/api/companies/search/";
     }
+    console.log("goFilter" + value); //url to poll
 
-    console.log(value); //url to poll
+    $(siv).trigger('retrieve_subcategory', value);
+  })
+  $('a.goSubcategories').click(function (){
+
+    value = $("#subcategories").val();
+    console.log("goSub:" + value); //url to poll
+
     $(siv).trigger('retrieve_subcategory', value);
   })
   $('#card .close').click(function(event){
