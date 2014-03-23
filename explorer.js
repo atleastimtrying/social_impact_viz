@@ -6,8 +6,8 @@ window.siv.UI = function(){
   };
   $('#go').click(function(event){
     event.preventDefault();
-    var value = $('select#categories').val();
-    $(siv).trigger('retrieve_category', value);
+    var value = $('select#subcategories').val();
+    $(siv).trigger('retrieve_subcategory', value);
   });
   $('#canvas').on({
     click: retrieve_company
@@ -25,8 +25,10 @@ window.siv.UI = function(){
 window.siv.Draw = function(){
   var canvas = $('#canvas');
   var select = $('select#categories');
+  var subselect = $('select#subcategories');
   var company_card = $('#company_card').html();
   var categories_template = $('#categories_options').html();
+  var subcategories_template = $('#subcategories_options').html();
   var companies_list = $('#companies_list').html();
 
   var render_company = function(company){
@@ -34,6 +36,7 @@ window.siv.Draw = function(){
   };
 
   var render_companies = function(companies){
+    console.log(companies);
     canvas.html(Mustache.render(companies_list, companies));
   };
 
@@ -42,26 +45,23 @@ window.siv.Draw = function(){
   };
 
   var render_subcategories = function(subcategories){
-    console.log(subcategories);
+    subselect.html(Mustache.render(subcategories_template, subcategories));
+    subselect.removeClass('hidden');
   };
 
-  $(siv).on('emit_company', function(event, company){
-    render_company(company);
-  });
+  var bind_to_emit = function(label, callback){
+    $(siv).on('emit_' + label, function(event, result){
+      callback(result);
+    });
+  };
 
-  $(siv).on('emit_categories', function(event, categories){
-    render_categories(categories);
-  });
+  bind_to_emit('company', render_company );
+  bind_to_emit('categories',render_categories);
+  bind_to_emit('subcategories',render_subcategories);
+  bind_to_emit('category',render_companies);
+  bind_to_emit('subcategory',render_companies);
 
-  $(siv).on('emit_subcategories', function(event, subcategories){
-    render_subcategories(subcategories);
-  });
-
-  $(siv).on('emit_category', function(event, category){
-    render_companies(category);
-  });
 };
-
 window.siv.Explorer = function(){
   this.apis = new siv.APIS();
   this.ui = new siv.UI();

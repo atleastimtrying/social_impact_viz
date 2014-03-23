@@ -16,11 +16,7 @@
 <body>
   <!--<input id="company_input" type="text" placeholder="enter a company name" />-->
   <div id="ui">
-    <p>I want to find companies that are involved in <select id="categories"></select>.</p>
-    <p class="hidden">And <select id="governance"></select></p>
-    <p class="hidden">And <select id="community"></select></p>
-    <p class="hidden">And <select id="supplychain"></select></p>
-    <p class="hidden">And <select id="environment"></select></p>
+    <p>I want to find companies that are involved in <select id="categories"></select><select id="subcategories" class="hidden"></select>.</p>
     <a href="#" id="go">Find!</a>
   </div>
   <div id="canvas"></div>
@@ -31,12 +27,18 @@
     <option value="{{company}}" {{#subcategories}} data-subcategories="{{subcategories}}" {{/subcategories}}>{{name}}</option>
     {{/emitted}}
   </script>
+  <script id="subcategories_options" type="text/html">
+    <option>Choose...</option>
+    {{#emitted}}
+    <option value="{{companies}}" {{#subcategories}} data-subcategories="{{subcategories}}" {{/subcategories}}>{{name}}</option>
+    {{/emitted}}
+  </script>
   <script id="company_card" type="text/html">
     <div class="company">
       <h3>{{emitted.name}}</h3>
       <ul>
-      <li>Social impact Score:{{emitted.social_impact_score}}</li>
-      <li>Glassdoor CEO Approval:{{emitted.glassdoor.ceo_approval}}</li>
+        <li>Social impact Score:{{emitted.social_impact_score}}</li>
+        <li>Glassdoor CEO Approval:{{emitted.glassdoor.ceo_approval}}</li>
       </ul>
     </div>
   </script>

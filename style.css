@@ -97,3 +97,6 @@ ul.inputs li input{
   margin-bottom:8px;
   border-radius:2px;
 }
+.hidden{
+  display:none;
+}

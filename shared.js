@@ -1,6 +1,6 @@
 window.siv = {};
 window.siv.APIS = function(){
-  var root = "http://10.10.63.64:9292";
+  var root = "http://10.10.63.58:9292";
   var companies_list = "/api/companies/"
   var categories_list = "/api/categories/"
 
@@ -16,19 +16,8 @@ window.siv.APIS = function(){
     return root + categories_list;
   };
 
-  var build_subcategories_url = function(append){
-    return root + encodeURIComponent(append);
-  };
-
   var build_category_url = function(name){
     return root + categories_list + name
-  };
-
-  var search_companies = function(event, name){
-    var url = find_company_url(name);
-    jsonp(url, function(company){
-      emit('company', company);
-    });
   };
 
   var jsonp = function(url, callback){
@@ -53,40 +42,37 @@ window.siv.APIS = function(){
     });
   };
 
+  var emit_from_url = function(name, url){
+    jsonp(url, function(response){
+      emit(name, response);
+    });
+  };
+
   var emit = function(string, object){
     $(siv).trigger('emit_' + string, { emitted: object });
   };
 
-  var retrieve_categories = function(){
-    var url = build_categories_url();
-    jsonp(url, function(categories){
-      emit('categories', categories);
-    });
-  };  
-  var retrieve_subcategories = function(event, url){
-    var url = build_subcategories_url(url);
-    jsonp(url, function(subcategories){
-      emit('subcategories', subcategories);
-    });
-  };
+  $(siv).on('retrieve_categories', function(){
+    emit_from_url('categories', build_categories_url());
+  });
 
-  var retrieve_category = function(event, category){
-    var url = build_category_url(category);
-    jsonp(url, function(category){
-      emit('category', category);
-    });
-  };
-
-  var retrieve_company = function(event, url){
-    var url = build_company_url(url);
-    jsonp(url, function(company){
-      emit('company', company);
-    });
-  };
-
-  $(siv).on('retrieve_categories', retrieve_categories);
-  $(siv).on('retrieve_subcategories', retrieve_subcategories);
-  $(siv).on('retrieve_category', retrieve_category);
-  $(siv).on('retrieve_company', retrieve_company);
-  $(siv).on('search_companies', search_companies);
+  $(siv).on('retrieve_subcategories', function(event, url){
+    emit_from_url('subcategories', url);
+  });
+  
+  $(siv).on('retrieve_category', function(event, category){
+    emit_from_url('category', build_category_url(category));
+  });
+  
+  $(siv).on('retrieve_subcategory', function(event, url){
+    emit_from_url('subcategory', url);
+  });
+  
+  $(siv).on('retrieve_company', function(event, url){
+    emit_from_url('subcategory', build_company_url(url));
+  });
+  
+  $(siv).on('search_companies', function(event, name){
+    emit_from_url('company', find_company_url(name));
+  });
 };
