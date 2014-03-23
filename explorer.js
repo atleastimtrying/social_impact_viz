@@ -13,7 +13,8 @@ window.siv.UI = function(){
     $(siv).trigger('retrieve_subcategory', value);
   });
 
-  $('a.goFilter').click(function (){
+  $('a.goFilter').click(function(event){
+    event.preventDefault();
     var filtersValue = $("#filters").val();
     var comparersValue = $("#comparers").val();
     var compareValueValue = $("#compareValue").val();

@@ -26,7 +26,7 @@ window.siv.Sketch = function(){
 
   var move = function(){
     x += 100;
-    if(x > canvas.width){
+    if(x > 1000){
       x = 100;
       y += 100;
     }
