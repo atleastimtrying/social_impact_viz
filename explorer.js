@@ -7,8 +7,30 @@ window.siv.UI = function(){
   
   $('select#subcategories').change(function(){
     var value = $('select#subcategories').val();
-    $(siv).trigger('retrieve_subcategory', value);
+    $("#filters").removeClass("hidden");
+    $("#whereText").removeClass("hidden");
+    $("#comparers").removeClass("hidden");
+    $("#compareValue").removeClass("hidden");        
+
   });
+  $('a.go').click(function (){
+
+    var filtersValue = $("#filters").val();
+    var comparersValue = $("#comparers").val();
+    var compareValueValue = $("#compareValue").val();
+
+    var value = "";
+
+    if (filtersValue && compareValue && compareValueValue) {
+      value = "http://10.10.63.58:9292/api/companies/search/" + filtersValue + "/" + comparersValue + "/" + compareValueValue;
+    }
+    else{
+      value = "http://10.10.63.58:9292/api/companies/search/";
+    }
+
+    console.log(value); //url to poll
+    $(siv).trigger('retrieve_subcategory', value);
+  })
   $('#card .close').click(function(event){
     event.preventDefault();
     $(event.currenttTarget).parents('#card').hide();
