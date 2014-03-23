@@ -16,7 +16,7 @@ window.Charting = (function() {
           })
         });
       });
-      console.log(out);
+
       return out;
     };
 
@@ -25,11 +25,7 @@ window.Charting = (function() {
 
 
     this.draw = function(type) {
-      if(type == 'pie') {
-        this.types.pieChart();
-      } else if(type == 'bar') {
-        this.types.groupedBarChart();
-      }
+      this.types.groupedBarChart();
     }
 
     this.types = {
@@ -53,21 +49,6 @@ window.Charting = (function() {
 
           nv.utils.windowResize(chart.update);
 
-          return chart;
-        });
-      },
-
-      pieChart: function() {
-        nv.addGraph(function() {
-          var chart = nv.models.pieChart()
-            .x(function(d) { return d.label })
-            .y(function(d) { return d.value })
-            .showLabels(true);
-
-          d3.select("#chart svg")
-            .datum(all_data)
-            .transition().duration(350)
-            .call(chart);
           return chart;
         });
       }

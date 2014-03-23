@@ -1,6 +1,14 @@
 window.siv.Comparator = function(){
   this.apis = new siv.APIS();
   var companies = [];
+  var new_company_input ='<li><input class="company_name" placeholder="Company Name" tabindex="0" /><a href="#" class="delete" tabindex="3">x</a></li>';
+
+  if(siv.params) {
+    $.each(siv.params, function(idx, pair) {
+      $('.company_name').first().before(new_company_input);
+      $('.company_name').first().val(decodeURI(pair.key));
+    });
+  }
 
   var render = function(){
     var chart = new Charting(companies);
@@ -28,7 +36,7 @@ window.siv.Comparator = function(){
   });
   $('.more').click(function(event){
     event.preventDefault();
-    $('.inputs').append('<li><input class="company_name" placeholder="Company Name" /><a href="#" class="delete">x</a></li>');
+    $('.inputs').append(new_company_input);
     $('.inputs li:last-child input').focus();
   });
   $('li a.delete').click(function(event){
@@ -40,13 +48,12 @@ window.siv.Comparator = function(){
     render();
   });
 
-  var inputHasChanged = function() {
-    if(event.keyCode == 13) {
+  var inputHasChanged = function(event) {
+    if(event.keyCode == 13 && $(event.currentTarget).hasClass('company_name')) {
       $('#go').trigger('click');
     }
   }
-
-  $('.chart_type').on('change', render)
+  $('.chart_type').on('change', render);
   $('.inputs').on(
     {
       keyup: inputHasChanged,
@@ -58,4 +65,14 @@ window.siv.Comparator = function(){
 $(function(){
   siv.read();
   window.comparator = new siv.Comparator();
+  var resize = function() {
+    var chart_height = $(document).outerHeight() - ($('#ui').outerHeight() + 60);
+    $('#chart').height(chart_height);
+  };
+  resize();
+  $(window).on('resize', resize);
+  if(siv.params && siv.params.length > 0) {
+    $('#go').trigger('click');
+  }
+
 });
