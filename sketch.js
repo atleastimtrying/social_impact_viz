@@ -13,12 +13,23 @@ window.siv.Sketch = function(){
     return ctx;
   };
   var ctx = build_ctx();
+  var x = 100;
+  var y = 100;
+
+  var draw_company = function(ctx, element){
+    ctx.fillStyle = "red";
+    console.log(x);
+    ctx.fillCircle(x,y, element.ratings.community);
+    x += 100;
+  };
 
   $(siv).on('sketch', function(event, result){
     var companies = result.emitted;
     ctx.fillStyle = "#ccc";
     ctx.fillRect(0, 0, 800, 400);
     ctx.fillStyle = "white";
-    ctx.fillCircle(10,10,10);
+    $.each(function(index, element){
+      drawCompany(ctx, element);
+    });
   });
 };

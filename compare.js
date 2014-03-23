@@ -70,5 +70,6 @@ window.siv.Comparator = function(){
 };
 
 $(function(){
+  siv.read();
   window.comparator = new siv.Comparator();
 });

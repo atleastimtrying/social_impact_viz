@@ -77,5 +77,6 @@ window.siv.Explorer = function(){
 };
 
 $(function(){
+  siv.read();
   window.explorer = new siv.Explorer();
 });
