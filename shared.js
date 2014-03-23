@@ -33,7 +33,7 @@ window.siv.APIS = function(){
 window.siv.read = function(){
   var params_string = window.location.toString().split('?')[1];
   if(params_string){
-    params_string.split('&').map(function(element){ 
+    siv.params = params_string.split('&').map(function(element){ 
       var key_values = element.split('='); 
       return { 
         key:key_values[0], 
