@@ -11,16 +11,21 @@
   <script>window.duck = {};</script>
   <script src="libs.js"></script>
   <script src="shared.js"></script>
+  <script src="sketch.js"></script>
   <script src="explorer.js"></script>
 </head>
 <body>
   <!--<input id="company_input" type="text" placeholder="enter a company name" />-->
   <div id="ui">
     <p>I want to find companies that are involved in <select id="categories"></select><select id="subcategories" class="hidden"></select>.</p>
-    <a href="#" id="go">Find!</a>
   </div>
   <div id="canvas"></div>
+  <canvas id="stage"></canvas>
   <div id="thinking">Thinking..</div>
+  <div id="card">
+    <div id="card_render"></div>
+    <a href="#" class="close_card">x</a>
+  </div>
   <script id="categories_options" type="text/html">
     <option>Choose...</option>
     {{#emitted}}
@@ -46,7 +51,17 @@
     <div class="companies">
       <ul>
       {{#emitted}}
-      <li><a data-href="{{url}}" class="build_company">{{name}}</a></li>
+      <li>
+        <a data-href="{{url}}" class="build_company">
+          {{name}}
+          <span class="quick_stats">
+            {{#ratings.community}} Community: {{ratings.community}}% <br>{{/ratings.community}}
+            {{#ratings.employees}} Employees: {{ratings.employees}}% <br>{{/ratings.employees}}
+            {{#ratings.environment}} Environment: {{ratings.environment}}% <br>{{/ratings.environment}}
+            {{#ratings.governance}} Governance: {{ratings.governance}}% {{/ratings.governance}}
+          </span>
+        </a>
+      </li>
       {{/emitted}}
       </ul>
     </div>
