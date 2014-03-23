@@ -14,7 +14,20 @@ window.siv.UI = function(){
 
   });
   $('a.go').click(function (){
-    var value = "http://10.10.63.58:9292/api/companies/search/" + $("#filters").val() + "/" + $("#comparers").val() + "/" + $("#compareValue").val();
+
+    var filtersValue = $("#filters").val();
+    var comparersValue = $("#comparers").val();
+    var compareValueValue = $("#compareValue").val();
+
+    var value = "";
+
+    if (filtersValue && compareValue && compareValueValue) {
+      value = "http://10.10.63.58:9292/api/companies/search/" + filtersValue + "/" + comparersValue + "/" + compareValueValue;
+    }
+    else{
+      value = "http://10.10.63.58:9292/api/companies/search/";
+    }
+
     console.log(value); //url to poll
     $(siv).trigger('retrieve_subcategory', value);
   })
