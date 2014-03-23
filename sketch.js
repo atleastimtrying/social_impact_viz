@@ -46,7 +46,7 @@ window.siv.Sketch = function(){
         })
         .style("fill", function(d) { 
           if(d.ratings.environment){
-            return 'hsl(' + (d.ratings.environment * 3.6) + ', 60%, 60%)';
+            return 'hsl(' + 209 + ', 60%, ' + d.ratings.environment + '%)';
           }else{
             return '#eee';
           }
