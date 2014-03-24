@@ -20,9 +20,9 @@ window.siv.UI = function(){
     var compareValueValue = $("#compareValue").val();
     var value = "";
     if (filtersValue && compareValue && compareValueValue) {
-      value = "http://10.10.63.58:9292/api/companies/search/" + filtersValue + "/" + comparersValue + "/" + compareValueValue;
+      value = "http://socialimpact.harryrickards.com/api/companies/search/" + filtersValue + "/" + comparersValue + "/" + compareValueValue;
     }else{
-      value = "http://10.10.63.58:9292/api/companies/search/";
+      value = "http://socialimpact.harryrickards.com/api/companies/search/";
     }
     $(siv).trigger('retrieve_subcategory', value);
   });
@@ -33,7 +33,7 @@ window.siv.UI = function(){
       $(siv).trigger('retrieve_subcategories', sub_url);
     }
   });
-  $(siv).trigger('retrieve_categories', "http://10.10.63.58:9292/api/categories/");
+  $(siv).trigger('retrieve_categories', "http://socialimpact.harryrickards.com/api/categories/");
 };
 
 window.siv.Draw = function(){

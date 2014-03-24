@@ -19,7 +19,7 @@ window.siv.Comparator = function(){
   };
 
   var find_company_url = function(name){
-    return "http://10.10.63.58:9292/api/companies/" + name;
+    return "http://socialimpact.harryrickards.com/api/companies/" + name;
   };
 
   $('#go').click(function(event){
